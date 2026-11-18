@@ -1,0 +1,316 @@
+/* ============================================================
+   NE VODA — первый экран в композиции Nusa.
+   Фото-обложка на весь hero (100vh минус sticky-header),
+   огромный wordmark в левом нижнем углу, описание + CTA в правом
+   нижнем углу. Без рамок, карточек, подписей и фактов.
+   Анимация только текста:
+     wordmark  translateY(18px) + opacity 0.001 -> 1, 1600ms, delay 300ms
+     текст+CTA translateY(14px) + opacity 0.001 -> 1, 1200ms, delay 700ms
+     easing cubic-bezier(.2,.7,.2,1), fill both
+   Фото не анимируется. Скролл-эффектов нет.
+   Файл подключается последним; селекторы .hero.hero-nusa
+   перекрывают прежние правила .hero из style/pine/brand-motion.
+   ============================================================ */
+
+.hero.hero-nusa {
+  --hero-gutter: 40px;
+  --hero-bottom: 24px;
+  --hero-ink: #1f3d33;
+  --hero-cream: #f4ebd3;
+
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: calc(100svh - 60px);
+  min-height: 560px;
+  margin: 60px 0 0;
+  padding: 0;
+  overflow: clip;
+  background: #d9c6b0;
+  color: var(--hero-ink);
+  isolation: isolate;
+}
+
+/* ---------- фото-обложка (без анимации) ---------- */
+
+.hero-nusa .hero-frame {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #d9c6b0;
+}
+
+.hero-nusa .hero-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: 50% 0%;
+  transform: none;
+  animation: none !important;
+  will-change: auto;
+}
+
+/* ---------- градиенты поверх фото ---------- */
+
+.hero-nusa .hero-veil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(31, 61, 51, 0.20) 0%,
+    rgba(31, 61, 51, 0) 26%,
+    rgba(31, 61, 51, 0) 52%,
+    rgba(244, 235, 211, 0.22) 100%
+  );
+}
+
+.hero-nusa .hero-glow {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    70% 100% at 100% 100%,
+    rgba(244, 235, 211, 0.34) 0%,
+    rgba(244, 235, 211, 0) 100%
+  );
+}
+
+/* ---------- слой типографики ---------- */
+
+.hero-nusa .hero-inner {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+  padding: 0 var(--hero-gutter) var(--hero-bottom);
+}
+
+/* ---------- wordmark: левый нижний угол ---------- */
+
+.hero-nusa .hero-wordmark {
+  margin: 0;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 600;
+  font-size: clamp(64px, 13vw, 190px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: var(--hero-ink);
+  white-space: nowrap;
+  text-shadow: none;
+  opacity: 0.001;
+  transform: translateY(18px);
+  will-change: transform;
+  animation: hero-wordmark-in 1600ms cubic-bezier(0.2, 0.7, 0.2, 1) 300ms both;
+}
+
+/* ---------- описание + CTA: правый нижний угол ---------- */
+
+.hero-nusa .hero-text {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  width: 262px;
+  text-align: right;
+  opacity: 0.001;
+  transform: translateY(14px);
+  will-change: transform;
+  animation: hero-text-in 1200ms cubic-bezier(0.2, 0.7, 0.2, 1) 700ms both;
+}
+
+.hero-nusa .hero-sub {
+  margin: 0;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: rgba(31, 61, 51, 0.9);
+  text-shadow: none;
+}
+
+.hero-nusa .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--hero-ink);
+  color: var(--hero-cream);
+  font: 500 15px/18px 'DM Sans', Arial, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.hero-nusa .hero-cta i {
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.hero-nusa .hero-cta:hover {
+  background: #16302a;
+  transform: translateY(-2px);
+}
+
+.hero-nusa .hero-cta:hover i {
+  transform: translateY(2px);
+}
+
+.hero-nusa .hero-cta:focus-visible {
+  outline: 2px solid var(--hero-ink);
+  outline-offset: 3px;
+}
+
+/* ---------- хореография (только текст) ---------- */
+
+@keyframes hero-wordmark-in {
+  from { opacity: 0.001; transform: translateY(18px); }
+  to   { opacity: 1;     transform: translateY(0); }
+}
+
+@keyframes hero-text-in {
+  from { opacity: 0.001; transform: translateY(14px); }
+  to   { opacity: 1;     transform: translateY(0); }
+}
+
+/* ---------- планшет ---------- */
+
+@media (max-width: 1024px) {
+  .hero.hero-nusa {
+    --hero-gutter: 24px;
+  }
+
+  .hero-nusa .hero-wordmark {
+    font-size: clamp(58px, 12.2vw, 140px);
+  }
+
+  .hero-nusa .hero-text {
+    width: 246px;
+  }
+
+  .hero-nusa .hero-sub {
+    font-size: 16px;
+  }
+}
+
+/* ---------- мобильный: фото сверху, текст снизу слева ---------- */
+
+@media (max-width: 700px) {
+  .hero.hero-nusa {
+    --hero-gutter: 16px;
+    --hero-bottom: 20px;
+
+    height: calc(100svh - 57px);
+    min-height: 520px;
+    margin-top: 57px;
+    background: linear-gradient(180deg, #d5c1a9 0%, #ddcbb4 46%, #e7dac6 100%);
+  }
+
+  .hero-nusa .hero-frame {
+    inset: 0 0 auto 0;
+    height: 66svh;
+  }
+
+  .hero-nusa .hero-frame::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 22%;
+    background: linear-gradient(to bottom, rgba(217, 198, 176, 0), #ddcbb4 92%);
+    pointer-events: none;
+  }
+
+  .hero-nusa .hero-image {
+    object-position: 50% 0;
+  }
+
+  .hero-nusa .hero-veil {
+    background: linear-gradient(
+      to bottom,
+      rgba(31, 61, 51, 0.16) 0%,
+      rgba(31, 61, 51, 0) 22%,
+      rgba(31, 61, 51, 0) 60%,
+      rgba(221, 203, 180, 0.18) 100%
+    );
+  }
+
+  .hero-nusa .hero-glow {
+    background: radial-gradient(
+      90% 70% at 0% 100%,
+      rgba(244, 235, 211, 0.34) 0%,
+      rgba(244, 235, 211, 0) 100%
+    );
+  }
+
+  .hero-nusa .hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 18px;
+  }
+
+  .hero-nusa .hero-wordmark {
+    font-size: clamp(52px, 20vw, 86px);
+    line-height: 0.92;
+  }
+
+  .hero-nusa .hero-text {
+    align-items: flex-start;
+    width: 100%;
+    max-width: 250px;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .hero-nusa .hero-sub {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .hero-nusa .hero-cta {
+    min-height: 52px;
+    padding: 0 20px;
+  }
+}
+
+/* ---------- reduced motion: без анимации, сразу видно ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-nusa .hero-wordmark,
+  .hero-nusa .hero-text {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .hero-nusa .hero-cta,
+  .hero-nusa .hero-cta i {
+    transition: none !important;
+  }
+
+  .hero-nusa .hero-cta:hover {
+    transform: none;
+  }
+}
