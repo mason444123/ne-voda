@@ -129,7 +129,7 @@
   font-size: clamp(64px, 13vw, 190px);
   line-height: 0.9;
   letter-spacing: -0.06em;
-  color: var(--hero-ink);
+  color: rgb(31 61 51 / 0.84);
   white-space: nowrap;
   text-shadow: none;
   opacity: 0.001;
@@ -174,7 +174,7 @@
   padding: 0 22px;
   border: 0;
   border-radius: 999px;
-  background: var(--hero-ink);
+  background: rgb(31 61 51 / 0.84);
   color: var(--hero-cream);
   font: 500 15px/18px 'DM Sans', Arial, sans-serif;
   text-decoration: none;
