@@ -34,6 +34,27 @@
 
 /* ---------- фото-обложка (без анимации) ---------- */
 
+@media (min-aspect-ratio: 1/1) {
+  .hero-nusa .hero-frame::before {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    background: url("pine-hero-product.webp?v=20261118c") center / cover no-repeat;
+    filter: blur(46px) saturate(1.06);
+  }
+  .hero-nusa .hero-frame .hero-image {
+    left: 50%;
+    right: auto;
+    width: min(100%, 96vh);
+    height: 100%;
+    transform: translateX(-50%);
+    object-fit: contain;
+    object-position: center;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+}
+
 .hero-nusa .hero-frame {
   position: absolute;
   z-index: 0;
@@ -51,8 +72,8 @@
   width: 100%;
   height: 100%;
   max-width: none;
-  object-fit: contain;
-  object-position: 50% 0%;
+  object-fit: cover;
+  object-position: 50% 50%;
   transform: none;
   animation: none !important;
   will-change: auto;
@@ -228,21 +249,12 @@
   }
 
   .hero-nusa .hero-frame {
-    inset: 0 0 auto 0;
-    height: 66svh;
-  }
-
-  .hero-nusa .hero-frame::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0;
-    height: 22%;
-    background: linear-gradient(to bottom, rgba(217, 198, 176, 0), #ddcbb4 92%);
-    pointer-events: none;
+    inset: 0;
+    height: 100%;
   }
 
   .hero-nusa .hero-image {
-    object-position: 50% 0;
+    object-position: 50% 50%;
   }
 
   .hero-nusa .hero-veil {
