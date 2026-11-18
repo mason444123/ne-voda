@@ -306,6 +306,20 @@
   }
 }
 
+@media (min-width: 701px) {
+  .hero-nusa .hero-frame::before { content: none; }
+  .hero-nusa .hero-frame .hero-image {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    object-fit: cover;
+    object-position: center;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
 /* ---------- reduced motion: без анимации, сразу видно ---------- */
 
 @media (prefers-reduced-motion: reduce) {
