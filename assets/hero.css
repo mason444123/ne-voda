@@ -126,7 +126,9 @@
   margin: 0;
   font-family: 'DM Sans', Arial, sans-serif;
   font-weight: 600;
-  font-size: clamp(64px, 13vw, 190px);
+  /* На десктопе заголовок намеренно сдержанный: он живёт
+     в левом нижнем углу и не заходит на бутылку в центре кадра. */
+  font-size: clamp(42px, 5.6vw, 86px);
   line-height: 0.9;
   letter-spacing: -0.06em;
   color: rgb(31 61 51 / 0.84);
@@ -146,7 +148,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 14px;
-  width: 262px;
+  width: auto;
   text-align: right;
   opacity: 0.001;
   transform: translateY(14px);
@@ -223,11 +225,11 @@
   }
 
   .hero-nusa .hero-wordmark {
-    font-size: clamp(58px, 12.2vw, 140px);
+    font-size: clamp(38px, 6.4vw, 70px);
   }
 
   .hero-nusa .hero-text {
-    width: 246px;
+    width: auto;
   }
 
   .hero-nusa .hero-sub {
@@ -318,6 +320,10 @@
     -webkit-mask-image: none;
     mask-image: none;
   }
+
+  /* Мелкий текст над кнопкой убран на десктопе: остаётся заголовок
+     и CTA. Мобильный первый экран остаётся без изменений. */
+  .hero-nusa .hero-sub { display: none; }
 }
 
 /* ---------- reduced motion: без анимации, сразу видно ---------- */
